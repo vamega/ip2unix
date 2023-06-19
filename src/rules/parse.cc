@@ -5,14 +5,7 @@
 #include <netinet/in.h>
 #include <stdint.h>
 #include <sys/socket.h>
-#include <yaml-cpp/exceptions.h>
-#include <yaml-cpp/node/detail/iterator.h>
-#include <yaml-cpp/node/detail/iterator_fwd.h>
-#include <yaml-cpp/node/impl.h>
-#include <yaml-cpp/node/iterator.h>
-#include <yaml-cpp/node/node.h>
-#include <yaml-cpp/node/parse.h>
-#include <yaml-cpp/node/type.h>
+#include <yaml-cpp/yaml.h>
 #include <algorithm>
 #include <iostream>
 #include <cstddef>

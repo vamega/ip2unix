@@ -1,6 +1,5 @@
 #include <serial.hh>
 #include <stdint.h>
-#include <__bit_reference>
 #include <stdexcept>
 
 #include "rules.hh"
