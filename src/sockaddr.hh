@@ -9,7 +9,6 @@
 #include <string>
 #include <variant>
 #include <cstddef>
-#include <iosfwd>
 #include <utility>
 
 struct sockaddr_in6;

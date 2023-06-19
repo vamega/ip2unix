@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 #define IP2UNIX_REALCALL_EXTERN
 #include <initializer_list>
-#include <iosfwd>
 #include <memory>
 #include <mutex>
 

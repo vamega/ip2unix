@@ -9,7 +9,6 @@
 #include <optional>
 #include <queue>
 #include <unordered_map>
-#include <iosfwd>
 #include <unordered_set>
 
 #include "types.hh"

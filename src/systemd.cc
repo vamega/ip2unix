@@ -8,7 +8,6 @@
 #include <deque>
 #include <algorithm>
 #include <cstdlib>
-#include <iosfwd>
 #include <string>
 #include <utility>
 
