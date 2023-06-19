@@ -3,6 +3,7 @@
 #define IP2UNIX_GLOBPATH_HH
 
 #include <string>
+#include <iosfwd>
 
 bool globpath(const std::string&, const std::string&);
 

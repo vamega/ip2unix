@@ -1,4 +1,10 @@
 #include <serial.hh>
+#include <stdint.h>
+#include <__bit_reference>
+#include <stdexcept>
+
+#include "rules.hh"
+#include "types.hh"
 
 /* All the combinations of values we want to check */
 

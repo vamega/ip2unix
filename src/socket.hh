@@ -2,18 +2,25 @@
 #ifndef IP2UNIX_SOCKET_HH
 #define IP2UNIX_SOCKET_HH
 
+#include <sys/socket.h>
 #include <functional>
 #include <memory>
 #include <mutex>
 #include <optional>
 #include <queue>
 #include <unordered_map>
+#include <__mutex_base>
+#include <iosfwd>
+#include <unordered_set>
 
 #include "types.hh"
 #include "sockaddr.hh"
 #include "sockopts.hh"
 #include "dynports.hh"
 #include "blackhole.hh"
+
+enum class SocketType;
+struct BlackHole;
 
 struct Socket : std::enable_shared_from_this<Socket>
 {
