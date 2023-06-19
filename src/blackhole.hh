@@ -4,7 +4,6 @@
 
 #include <optional>
 #include <string>
-#include <iosfwd>
 
 struct BlackHole
 {
