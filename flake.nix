@@ -76,6 +76,50 @@
 
     defaultPackage = forAllSystems (system: self.packages.${system}.ip2unix);
 
+    devShellsInner = withPkgs (pkgs:
+      let
+        llvmPackages = pkgs.llvmPackages;
+        iwyu_unwrapped = pkgs.include-what-you-use;
+        iwyu = pkgs.wrapCCWith {
+          cc = iwyu_unwrapped;
+          libcxx = llvmPackages.libcxx;
+          extraBuildCommands = ''
+            wrap include-what-you-use $wrapper $ccPath/include-what-you-use
+            substituteInPlace "$out/bin/include-what-you-use" --replace 'dontLink=0' 'dontLink=1'
+            substituteInPlace "$out/bin/include-what-you-use" --replace ' && isCxx=1 || isCxx=0' '&& true; isCxx=1'
+
+            rsrc="$out/resource-root"
+            mkdir "$rsrc"
+            ln -s "${llvmPackages.clang-unwrapped.lib}/lib/clang/${llvmPackages.clang-unwrapped.version}/include" "$rsrc"
+            ln -s "${llvmPackages.compiler-rt.out}/lib" "$rsrc/lib"
+            ln -s "${llvmPackages.compiler-rt.out}/share" "$rsrc/share"
+            echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+          '';
+        };
+      in
+      (pkgs.mkShell.override { stdenv = llvmPackages.stdenv; }) {
+        nativeBuildInputs = [
+          pkgs.perf-tools
+          llvmPackages.clang
+          iwyu
+          pkgs.meson pkgs.ninja pkgs.pkg-config pkgs.asciidoc pkgs.libxslt.bin
+          pkgs.docbook_xml_dtd_45 pkgs.docbook_xsl pkgs.libxml2.bin
+          pkgs.docbook5 pkgs.python3Packages.pytest
+          pkgs.python3Packages.pytest-timeout pkgs.systemd
+        ];
+        buildInputs = [ pkgs.libyamlcpp ];
+        hardeningDisable = [ "all" ];
+
+
+        # Environment variables
+        IWYU_BINARY="${iwyu}/bin/include-what-you-use";
+        LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib ]}";
+    });
+
+    devShells = forAllSystems(system: {
+      default = self.devShellsInner.${system};
+    });
+
     hydraJobs = let
       # This is with all the *required* dependencies only.
       withSystem = fun: system: let
