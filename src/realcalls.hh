@@ -9,7 +9,6 @@
 #include <sys/socket.h>
 #include <cstring>
 #include <mutex>
-#include <__mutex_base>
 
 #include "logging.hh"
 
